@@ -1,5 +1,77 @@
 // This is where it all goes :)
 
+(function(window, document, undefined){
+
+// code that should be taken care of right away
+
+window.onload = init;
+
+  var wrapInner = (parent, wrapper, classes) => {
+
+    if (typeof wrapper === "string") {
+      wrapper = document.createElement(wrapper);
+      classes.map(item => wrapper.classList.add(item));
+    }
+
+    var div = parent.appendChild(wrapper);
+    while(parent.firstChild !== wrapper)
+        wrapper.appendChild(parent.firstChild);
+  }
+
+
+  var addEvent = function(object, type, callback) {
+      if (object == null || typeof(object) == 'undefined') return;
+      if (object.addEventListener) {
+          object.addEventListener(type, callback, false);
+      } else if (object.attachEvent) {
+          object.attachEvent("on" + type, callback);
+      } else {
+          object["on"+type] = callback;
+      }
+  };
+
+
+
+  function scaleSlideToScreen(el) {
+    var padding = 0.9
+    var availableWidth = window.outerWidth;
+    var availableHeight = window.outerHeight;
+    var scale = Math.min(
+      availableWidth / el.getBoundingClientRect().width,
+      availableHeight / el.getBoundingClientRect().height
+    );
+    Object.assign(el.style,{transform:'scale(' + scale * padding + ')' });
+  }
+
+  function wrapInnerChildren() {
+    var contentBlocks = document.querySelectorAll('.content')[0].children
+    for (var i = 0; i < contentBlocks.length; i++) {
+      wrapInner(contentBlocks[i], 'div', ['cf', 'min-vh-100-ns', 'w-100', 'flex', 'items-center', 'justify-center']);
+      wrapInner(contentBlocks[i].children[0], 'div', ['w-100']);
+    }
+  }
+
+  function scaleSlides() {
+    var contentBlocks = document.querySelectorAll('.content')[0].children
+    for (var i = 0; i < contentBlocks.length; i++) {
+      scaleSlideToScreen(contentBlocks[i])
+    }
+  }
+
+  function init(){
+    wrapInnerChildren()
+    scaleSlides()
+    addEvent(window, "resize", function(event) {
+      scaleSlides()
+    });
+  }
+
+
+
+
+})(window, document, undefined);
+
+
 
 
 /*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */

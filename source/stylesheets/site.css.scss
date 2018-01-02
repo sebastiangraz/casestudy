@@ -19,14 +19,27 @@ a {
     color: rgba(#000, 0.5);
   }
 }
-image {
-  width: 100%;
+img {
+  display: block;
 }
-.image-row {
+.row {
+  margin: 0 auto;
   width: 100%;
-  max-width: 1180px;
-  margin: 6rem auto;
+  border-bottom:1px solid;
 }
+// .multi-row {
+//   margin: 0 auto;
+// }
+// .image-row {
+//   width: 100%;
+//   max-width: 1180px;
+//   margin: 6rem auto;
+// }
+// .text-row {
+//   width: 84%;
+//   max-width: 640px;
+//   margin: 6rem auto;
+// }
 ol {
   padding: 0;
   li {
@@ -53,10 +66,9 @@ mark {
   white-space: pre;
   border-radius: 2px;
 }
-.text-row {
-  width: 84%;
-  max-width: 640px;
-  margin: 6rem auto;
+
+* {
+  box-sizing: border-box;
 }
 
 .reveal {
